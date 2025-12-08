@@ -35,13 +35,16 @@ public class TitleManager : MonoBehaviour
             UserDataManager.Instance.SaveUserData();
         }
 
-        //// 테스트
-        //ChapterData chapterData1 = DataTableManager.Instance.GetChapterData(10); // 해당 챕터
-        //ChapterData chapterData2 = DataTableManager.Instance.GetChapterData(50);
+        var confirmUIData = new ConfirmUIData();
+        confirmUIData.ConfirmType = ConfirmType.OK;
+        confirmUIData.TitleText = "UI Text";
+        confirmUIData.DescTxt = "This is UI Text";
+        confirmUIData.OKBtnTxt = "OK";
+        confirmUIData.ConfirmType = ConfirmType.OK_CANCEL;
+        confirmUIData.CancelBtnTxt = "babo";
+        UIManager.Instance.OpenUI<ConfirmUI>(confirmUIData);
 
-        //return;
-
-        StartCoroutine(LoadGameCo());
+        //StartCoroutine(LoadGameCo());
     }
 
     private IEnumerator LoadGameCo()

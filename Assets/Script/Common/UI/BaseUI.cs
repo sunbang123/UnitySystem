@@ -13,7 +13,7 @@ public class BaseUIData
 public class BaseUI: MonoBehaviour
 {
     // UI를 열어줄 때 재생할 애니메이션 변수
-    public Animation m_UIOpenAnim;
+    //public Animation m_UIOpenAnim;
 
     // 화면을 열 때 실행해야할 기능
     // 화면을 닫을 때 실행해야할 액션 변수 선언
@@ -58,10 +58,10 @@ public class BaseUI: MonoBehaviour
     // UI 화면을 실제로 열어서 화면에 표시해 주는 함수
     public virtual void ShowUI()
     {
-        if(m_UIOpenAnim)
-        {
-            m_UIOpenAnim.Play();
-        }
+        //if(m_UIOpenAnim)
+        //{
+        //    m_UIOpenAnim.Play();
+        //}
 
         m_OnShow?.Invoke(); // m_OnShow가 null이 아니라면 m_OnShow 실행
         m_OnShow = null; // 실행 후 널값으로 초기화

@@ -36,5 +36,34 @@ public class ConfirmUI : BaseUI
     public override void SetInfo(BaseUIData uiData)
     {
         base.SetInfo(uiData);
+
+        // 매개변수로 받은 UI 데이터를 저장
+        m_ConfirmUIData = uiData as ConfirmUIData;
+
+        TitleTxt.text = m_ConfirmUIData.TitleText;
+        DescTxt.text = m_ConfirmUIData.DescTxt;
+        OKBtnTxt.text = m_ConfirmUIData.OKBtnTxt;
+        m_OnClickOKBtn = m_ConfirmUIData.OnClickOKBtn;
+        CancelBtnTxt.text = m_ConfirmUIData.CancelBtnTxt;
+        m_OnClickCancelBtn = m_ConfirmUIData.OnClickCancelBtn;
+
+        // ok버튼과 cancel 버튼을 활성화
+        // ConfirmType이 ok면 ok버튼만, cancel이면 ok, cancel 버튼 둘 다 활성화
+        OKBtn.gameObject.SetActive(true);
+        CancelBtn.gameObject.SetActive(m_ConfirmUIData.ConfirmType == ConfirmType.OK_CANCEL);
+    }
+
+    // 확인 버튼 클릭 시 처리를 위한 함수
+    public void OnClickOKBtn()
+    {
+        m_OnClickOKBtn?.Invoke(); // null이 아니면 액션 실행
+        CloseUI();
+    }
+
+    // 취소 버튼 클릭 시 처리를 위한 함수
+    public void OnClickCancelBtn()
+    {
+        m_OnClickCancelBtn?.Invoke();
+        CloseUI();
     }
 }
