@@ -88,6 +88,19 @@ public class AudioManager : SingletonBehaviour<AudioManager>
         }
     }
 
+    public void OnLoadUserData()
+    {
+        var userSettingsData = UserDataManager.Instance.GetUserData<UserSettingsData>();
+        if(userSettingsData != null) // 유효성 검사
+        {
+            // false이면 mute
+            if(!userSettingsData.Sound)
+            {
+                Mute();
+            }
+        }
+    }
+
     //BGM 플레이 함수
     public void PlayBGM(BGM bgm)
     {

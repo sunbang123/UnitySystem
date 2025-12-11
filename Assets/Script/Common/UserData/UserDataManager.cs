@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class UserDataManager : SingletonBehaviour<UserDataManager>
 {
     // 저장된 유저 데이터 존재 여부
@@ -65,5 +65,12 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
             ExistsSavedData = true;
             PlayerPrefs.SetInt("ExistsSavedData", 1);
         }
+    }
+
+    // 여기서 T 오브젝트 타입은 찾고자 하는 UserData의 클래스 타입(class, IUserData)
+    public T GetUserData<T>() where T : class, IUserData
+    {
+        // 타입이 T 인 것중에 첫번째 인스턴스를 리턴하거나 없으면 null 리턴
+        return UserDataList.OfType<T>().FirstOrDefault();
     }
 }

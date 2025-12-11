@@ -76,6 +76,9 @@ public class BaseUI: MonoBehaviour
             m_OnClose?.Invoke();
         }
         m_OnClose = null;
+
+        // 이 줄을 추가!
+        UIManager.Instance.CloseUI(this);
     }
 
     public virtual void OnClickCloseButton()

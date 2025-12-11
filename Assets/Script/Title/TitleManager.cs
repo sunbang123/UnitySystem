@@ -28,23 +28,14 @@ public class TitleManager : MonoBehaviour
         // 유저 데이터 로드
         UserDataManager.Instance.LoadUserData();
 
-        // 저장된 유저 데이터가 없으면 기본값으로 세팅 후 젖아
+        // 저장된 유저 데이터가 없으면 기본값으로 세팅 후 저장
         if(!UserDataManager.Instance.ExistsSavedData)
         {
             UserDataManager.Instance.SetDefaultUserData();
             UserDataManager.Instance.SaveUserData();
         }
 
-        var confirmUIData = new ConfirmUIData();
-        confirmUIData.ConfirmType = ConfirmType.OK;
-        confirmUIData.TitleText = "UI Text";
-        confirmUIData.DescTxt = "This is UI Text";
-        confirmUIData.OKBtnTxt = "OK";
-        confirmUIData.ConfirmType = ConfirmType.OK_CANCEL;
-        confirmUIData.CancelBtnTxt = "babo";
-        UIManager.Instance.OpenUI<ConfirmUI>(confirmUIData);
-
-        //StartCoroutine(LoadGameCo());
+        StartCoroutine(LoadGameCo());
     }
 
     private IEnumerator LoadGameCo()

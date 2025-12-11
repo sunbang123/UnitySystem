@@ -7,10 +7,23 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
 
     // 이 클래스와 스태틱 인스턴스 변수
     protected static T m_Instance;
-    
+
     public static T Instance
     {
-        get { return m_Instance; }
+        get
+        {
+            if (m_Instance == null)
+            {
+                // 씬에서 인스턴스를 찾습니다. (이 코드가 싱글턴 클래스를 상속받은 모든 클래스에 대해 작동)
+                m_Instance = FindObjectOfType<T>();
+
+                if (m_Instance == null)
+                {
+                    Debug.LogError($"'{typeof(T).Name}' 싱글턴 인스턴스가 씬에 없습니다!");
+                }
+            }
+            return m_Instance;
+        }
     }
 
     private void Awake()
