@@ -9,7 +9,6 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
     // 모든 유저 UserDate 클래스는 IUserData 인터페이스를 구현하기 때문에
     // IUserData 타입으로 컨테이너를 선언하면 모든 유저 데이터 클래스를 이 컨테이너에 저장할 수 있음.
     public List<IUserData> UserDataList { get; private set; } = new List<IUserData>();
-
     protected override void Init()
     {
         base.Init();// Singleton Instance 처리가 init 함수에서 실행되기 때문에 해줘야함.
@@ -17,6 +16,7 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
         // 모든 유저 데이터를 UserDataList에 추가
         UserDataList.Add(new UserSettingsData());
         UserDataList.Add(new UserGoodsData());
+        UserDataList.Add(new UserInventoryData());
     }
 
     //모든 유저 데이터를 기본값으로 초기화하는 함수
