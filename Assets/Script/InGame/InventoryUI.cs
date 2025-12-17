@@ -2,14 +2,24 @@ using UnityEngine;
 using Gpm.Ui;
 using TMPro;
 
+public enum InventorySortType
+{
+    ItemGrade, // 등급
+    ItemType, // 종류
+}
+
 public class InventoryUI : BaseUI
 {
     public InfiniteScroll InventoryScrollList;
+    public TextMeshProUGUI SortBtnTxt;
+    private InventorySortType m_InventorySortType = InventorySortType.ItemGrade;
     public override void SetInfo(BaseUIData uiData)
     {
         base.SetInfo(uiData);
 
         SetInventory();
+
+        SortInventory();
     }
 
     private void SetInventory()
@@ -20,7 +30,7 @@ public class InventoryUI : BaseUI
 
         if(userInventoryData != null)
         {
-            foreach(var itemData in userInventoryData.InventoryDataList)
+            foreach(var itemData in userInventoryData.InventoryItemDataList)
             {
                 var itemSlotData = new InventoryItemSlotData();
                 itemSlotData.SerialNumber = itemData.SerialNumber;
@@ -28,5 +38,82 @@ public class InventoryUI : BaseUI
                 InventoryScrollList.InsertData(itemSlotData);
             }
         }
+    }
+
+    private void SortInventory()
+    {
+        switch (m_InventorySortType)
+        {
+            case InventorySortType.ItemGrade:
+
+                SortBtnTxt.text = "GRADE";
+
+                InventoryScrollList.SortDataList((a, b) =>
+                {
+                    var itemA = a.data as InventoryItemSlotData;
+                    var itemB = b.data as InventoryItemSlotData;
+
+                    int compareResult = ((itemB.ItemId / 1000) % 10).CompareTo((itemA.ItemId / 1000) % 10);
+
+                    if (compareResult == 0)
+                    {
+                        var itemAIdStr = itemA.ItemId.ToString();
+                        var itemAComp = itemAIdStr.Substring(0, 1) + itemAIdStr.Substring(2, 3);
+
+                        var itemBIdStr = itemB.ItemId.ToString();
+                        var itemBComp = itemBIdStr.Substring(0, 1) + itemBIdStr.Substring(2, 3);
+
+                        compareResult = itemAComp.CompareTo(itemBComp);
+                    }
+                    return compareResult;
+                });
+                break;
+
+            case InventorySortType.ItemType:
+
+                SortBtnTxt.text = "TYPE";
+
+                InventoryScrollList.SortDataList((a, b) =>
+                {
+                    var itemA = a.data as InventoryItemSlotData;
+                    var itemB = b.data as InventoryItemSlotData;
+
+                    var itemAIdStr = itemA.ItemId.ToString();
+                    var itemAComp = itemAIdStr.Substring(0, 1) + itemAIdStr.Substring(2, 3);
+
+                    var itemBIdStr = itemB.ItemId.ToString();
+                    var itemBComp = itemBIdStr.Substring(0, 1) + itemBIdStr.Substring(2, 3);
+
+                    int compareResult = itemAComp.CompareTo(itemBComp);
+
+                    if (compareResult == 0)
+                    {
+                        compareResult = ((itemB.ItemId / 1000) % 10).CompareTo((itemA.ItemId / 1000) % 10);
+                    }
+                    return compareResult;
+                });
+                break;
+            default:
+                break;
+        }
+        InventoryScrollList.UpdateAllData();
+    }
+
+    // 인벤토리 정렬조건을 다른 정렬조건으로 정렬해주는 기능~
+    public void OnClickSortBtn()
+    {
+        switch(m_InventorySortType)
+        {
+            case InventorySortType.ItemGrade:
+                m_InventorySortType = InventorySortType.ItemType;
+                break;
+            case InventorySortType.ItemType:
+                m_InventorySortType = InventorySortType.ItemGrade;
+                break;
+            default:
+                break;
+        }
+
+        SortInventory();
     }
 }

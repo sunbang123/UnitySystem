@@ -28,36 +28,64 @@ public class UserInventoryItemDataListWrapper
 
 public class UserInventoryData : IUserData
 {
-    public List<UserItemData> InventoryDataList { get; set; } = new List<UserItemData>();
+    public List<UserItemData> InventoryItemDataList { get; set; } = new List<UserItemData>();
 
     public void SetDefaultData()
     {
         Logger.Log($"{GetType()}::SetDefaultData");
 
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 11001));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 11002));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 21001));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 21002));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 31001));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 31002));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 41001));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 41002));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 51001));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 51002));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 61001));
-        InventoryDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss")
-            + UnityEngine.Random.Range(0, 9999).ToString("D4")), 61002));
+        //serial number => DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4") 
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 11001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 11002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 21001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 21002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 31001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 31002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 41001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 41002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 51001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 51002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 61001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 61002));
+
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 11001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 11002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 21001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 21002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 31001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 31002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 41001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 41002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 51001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 51002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 61001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 61002));
+
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 12001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 12002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 22001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 22002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 32001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 32002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 42001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 42002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 52001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 52002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 62001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 62002));
+
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 12001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 12002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 22001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 22002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 32001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 32002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 42001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 42002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 52001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 52002));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 62001));
+        InventoryItemDataList.Add(new UserItemData(long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss") + UnityEngine.Random.Range(0, 9999).ToString("D4")), 62002));
     }
 
     public bool LoadData()
@@ -75,11 +103,11 @@ public class UserInventoryData : IUserData
                 UserInventoryItemDataListWrapper itemDataListWrapper =
                     //그 래퍼 클래스 내에 있는 InventoryItemDataList에 있는 데이터를 UserInventoryData의 InventroyItemDataList 변수에 대입
                     JsonUtility.FromJson<UserInventoryItemDataListWrapper>(inventoryItemDataListJson);
-                InventoryDataList = itemDataListWrapper.InventoryItemDataList;
+                InventoryItemDataList = itemDataListWrapper.InventoryItemDataList;
 
                 Logger.Log("InventoryItemDataList");
 
-                foreach (var item in InventoryDataList)
+                foreach (var item in InventoryItemDataList)
                 {
                     Logger.Log($"SerialNumber:{item.SerialNumber} ItemID:{item.ItemId}");
                 }
@@ -105,7 +133,7 @@ public class UserInventoryData : IUserData
         {
             UserInventoryItemDataListWrapper inventoryItemDataListWrapper = new UserInventoryItemDataListWrapper();
 
-            inventoryItemDataListWrapper.InventoryItemDataList = InventoryDataList;
+            inventoryItemDataListWrapper.InventoryItemDataList = InventoryItemDataList;
 
             //이 데이터를 JsonUtility클래스를 이용해서 스트링으로 변환
             string inventoryItemDataListJson = JsonUtility.ToJson(inventoryItemDataListWrapper);
@@ -115,7 +143,7 @@ public class UserInventoryData : IUserData
 
             Logger.Log("InventoryItemDataList");
 
-            foreach (var item in InventoryDataList)
+            foreach (var item in InventoryItemDataList)
             {
                 Logger.Log($"SerialNumber:{item.SerialNumber} ItemID:{item.ItemId}");
             }

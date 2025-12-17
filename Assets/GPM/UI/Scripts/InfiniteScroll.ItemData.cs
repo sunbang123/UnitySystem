@@ -14,7 +14,7 @@ namespace Gpm.Ui
                 this.data = data;
             }
 
-            internal InfiniteScrollData data;
+            public InfiniteScrollData data;
             internal int index = -1;
 
             internal int itemIndex = -1;
@@ -314,6 +314,14 @@ namespace Gpm.Ui
                     selectCallback(data);
                 }
             }
+        }
+
+        // Comparison 타입은 C#에서 제공하는 델리게이트
+        public void SortDataList(Comparison<DataContext> comparison)
+        {
+            dataList.Sort(comparison);
+            needUpdateItemList = true;
+            UpdateShowItem();
         }
     }
 }
