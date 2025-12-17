@@ -9,14 +9,14 @@ public class UserItemData
     public long SerialNumber;
 
     //스택을 표시를 해줄 예정
-    public int ItemID;
+    public int ItemId;
 
     //생성자
-    public UserItemData(long serialNumber, int itemID)
+    public UserItemData(long serialNumber, int itemId)
     {
         SerialNumber = serialNumber;
 
-        ItemID = itemID;
+        ItemId = itemId;
     }
 }
 
@@ -81,7 +81,7 @@ public class UserInventoryData : IUserData
 
                 foreach (var item in InventoryDataList)
                 {
-                    Logger.Log($"SerialNumber:{item.SerialNumber} ItemID:{item.ItemID}");
+                    Logger.Log($"SerialNumber:{item.SerialNumber} ItemID:{item.ItemId}");
                 }
             }
 
@@ -117,7 +117,7 @@ public class UserInventoryData : IUserData
 
             foreach (var item in InventoryDataList)
             {
-                Logger.Log($"SerialNumber:{item.SerialNumber} ItemID:{item.ItemID}");
+                Logger.Log($"SerialNumber:{item.SerialNumber} ItemID:{item.ItemId}");
             }
 
             PlayerPrefs.Save();
