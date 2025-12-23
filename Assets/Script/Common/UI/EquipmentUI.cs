@@ -7,6 +7,7 @@ public class EquipmentUIData : BaseUIData
 {
     public long SerialNumber;
     public int ItemId;
+    public bool IsEquipped;
 }
 public class EquipmentUI : BaseUI
 {
