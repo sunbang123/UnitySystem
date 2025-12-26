@@ -17,6 +17,7 @@ public class EquipmentUI : BaseUI
     public TextMeshProUGUI ItemNameTxt;
     public TextMeshProUGUI AttackPowerAmountTxt;
     public TextMeshProUGUI DefenseAmountTxt;
+    public TextMeshProUGUI EquipBtnTxt;
 
     private EquipmentUIData m_EquipmentUIData;
 
@@ -89,5 +90,40 @@ public class EquipmentUI : BaseUI
         ItemNameTxt.text = itemData.ItemName;
         AttackPowerAmountTxt.text = $"+{itemData.AttackPower}";
         DefenseAmountTxt.text = $"+{itemData.Defense}";
+        EquipBtnTxt.text = m_EquipmentUIData.IsEquipped ? "Unequip" : "Equip";
+    }
+
+    public void OnClickEquipBtn()
+    {
+        var userInventoryData = UserDataManager.Instance.GetUserData<UserInventoryData>();
+        if(userInventoryData == null)
+        {
+            Logger.Log("UserInventoryData does not exits.");
+            return;
+        }
+        if(m_EquipmentUIData.IsEquipped)
+        {
+            userInventoryData.UnequipItem(m_EquipmentUIData.SerialNumber, m_EquipmentUIData.ItemId);
+        }
+        else
+        {
+            userInventoryData.EquipItem(m_EquipmentUIData.SerialNumber, m_EquipmentUIData.ItemId);
+        }
+        userInventoryData.SaveData();
+
+        var inventoryUI = UIManager.Instance.GetActiveUI<InventoryUI>() as InventoryUI;
+
+        if(inventoryUI != null)
+        {
+            if(m_EquipmentUIData.IsEquipped)
+            {
+                inventoryUI.OnUnequipItem(m_EquipmentUIData.ItemId);
+            }
+            else
+            {
+                inventoryUI.OnEquipItem(m_EquipmentUIData.ItemId);
+            }
+        }
+        CloseUI();
     }
 }

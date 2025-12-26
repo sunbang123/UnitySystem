@@ -25,7 +25,16 @@ public class UserInventoryItemDataListWrapper
 {
     public List<UserItemData> InventoryItemDataList;
 }
-
+public class UserItemStats
+{
+    public int AttackPower;
+    public int Defense;
+    public UserItemStats(int attackPower, int defense)
+    {
+        AttackPower = attackPower;
+        Defense = defense;
+    }
+}
 public class UserInventoryData : IUserData
 {
     public UserItemData EquippedWeaponData { get; set; }
@@ -36,6 +45,7 @@ public class UserInventoryData : IUserData
     public UserItemData EquippedAccessoryData { get; set; }
 
     public List<UserItemData> InventoryItemDataList { get; set; } = new List<UserItemData>();
+    public Dictionary<long, UserItemStats> EquippedItemDic { get; set; } = new Dictionary<long, UserItemStats>();
 
     // 시리얼 번호 생성기 (18자리로 오버플로우 방지)
     private long GenerateSN()
@@ -80,7 +90,7 @@ public class UserInventoryData : IUserData
         EquippedAccessoryData = GetItem(6, 1); // 6번타입 3등급 (장신구)
         // 나머지 부위도 기본값 필요하면 여기서 GetItem(타입, 등급)으로 호출
 
-        SaveData();
+        SetEquippedItemDic();
     }
 
     public bool LoadData()
@@ -150,6 +160,7 @@ public class UserInventoryData : IUserData
                     Logger.Log($"SerialNumber:{item.SerialNumber} ItemID:{item.ItemId}");
                 }
             }
+            SetEquippedItemDic();
 
             result = true;
         }
@@ -206,4 +217,165 @@ public class UserInventoryData : IUserData
         return result;
     }
 
+    public void SetEquippedItemDic()
+    {
+        if (EquippedWeaponData != null)
+        {
+            var itemData = DataTableManager.Instance.GetItemData(EquippedWeaponData.ItemId);
+            if (itemData != null)
+            {
+                EquippedItemDic.Add(EquippedWeaponData.SerialNumber,
+                    new UserItemStats(itemData.AttackPower, itemData.Defense));
+            }
+        }
+        if (EquippedShieldData != null)
+        {
+            var itemData = DataTableManager.Instance.GetItemData(EquippedShieldData.ItemId);
+            if (itemData != null)
+            {
+                EquippedItemDic.Add(EquippedShieldData.SerialNumber,
+                    new UserItemStats(itemData.AttackPower, itemData.Defense));
+            }
+        }
+        if (EquippedChestArmorData != null)
+        {
+            var itemData = DataTableManager.Instance.GetItemData(EquippedChestArmorData.ItemId);
+            if (itemData != null)
+            {
+                EquippedItemDic.Add(EquippedChestArmorData.SerialNumber,
+                    new UserItemStats(itemData.AttackPower, itemData.Defense));
+            }
+        }
+        if (EquippedBootsData != null)
+        {
+            var itemData = DataTableManager.Instance.GetItemData(EquippedBootsData.ItemId);
+            if (itemData != null)
+            {
+                EquippedItemDic.Add(EquippedBootsData.SerialNumber,
+                    new UserItemStats(itemData.AttackPower, itemData.Defense));
+            }
+        }
+        if (EquippedGlovesData != null)
+        {
+            var itemData = DataTableManager.Instance.GetItemData(EquippedGlovesData.ItemId);
+            if (itemData != null)
+            {
+                EquippedItemDic.Add(EquippedGlovesData.SerialNumber,
+                    new UserItemStats(itemData.AttackPower, itemData.Defense));
+            }
+        }
+        if (EquippedAccessoryData != null)
+        {
+            var itemData = DataTableManager.Instance.GetItemData(EquippedAccessoryData.ItemId);
+            if (itemData != null)
+            {
+                EquippedItemDic.Add(EquippedAccessoryData.SerialNumber,
+                    new UserItemStats(itemData.AttackPower, itemData.Defense));
+            }
+        }
+    }
+
+    public bool IsEquipped(long serialNumber)
+    {
+        return EquippedItemDic.ContainsKey(serialNumber);
+    }
+
+    public void EquipItem(long serialNumber, int itemId)
+    {
+        var itemData = DataTableManager.Instance.GetItemData(itemId);
+        if(itemData == null)
+        {
+            Logger.LogError($"Item data does not exit, ItemId: {itemId}");
+            return;
+        }
+        var itemType = (ItemType)(itemId / 10000);
+        switch(itemType)
+        {
+            case ItemType.Weapon:
+                if(EquippedWeaponData != null)
+                {
+                    EquippedItemDic.Remove(EquippedWeaponData.SerialNumber);
+                    EquippedWeaponData = null;
+                }
+                EquippedWeaponData = new UserItemData(serialNumber, itemId);
+                break;
+            case ItemType.Shield:
+                if (EquippedShieldData != null)
+                {
+                    EquippedItemDic.Remove(EquippedShieldData.SerialNumber);
+                    EquippedShieldData = null;
+                }
+                EquippedShieldData = new UserItemData(serialNumber, itemId);
+                break;
+            case ItemType.ChestArmor:
+                if (EquippedChestArmorData != null)
+                {
+                    EquippedItemDic.Remove(EquippedChestArmorData.SerialNumber);
+                    EquippedChestArmorData = null;
+                }
+                EquippedChestArmorData = new UserItemData(serialNumber, itemId);
+                break;
+            case ItemType.Boots:
+                if (EquippedBootsData != null)
+                {
+                    EquippedItemDic.Remove(EquippedBootsData.SerialNumber);
+                    EquippedBootsData = null;
+                }
+                EquippedBootsData = new UserItemData(serialNumber, itemId);
+                break;
+            case ItemType.Gloves:
+                if (EquippedGlovesData != null)
+                {
+                    EquippedItemDic.Remove(EquippedGlovesData.SerialNumber);
+                    EquippedGlovesData = null;
+                }
+                EquippedGlovesData = new UserItemData(serialNumber, itemId);
+                break;
+            case ItemType.Accessory:
+                if (EquippedAccessoryData != null)
+                {
+                    EquippedItemDic.Remove(EquippedAccessoryData.SerialNumber);
+                    EquippedAccessoryData = null;
+                }
+                EquippedAccessoryData = new UserItemData(serialNumber, itemId);
+                break;
+            default:
+                break;
+        }
+
+        EquippedItemDic.Add(serialNumber, new UserItemStats(itemData.AttackPower, itemData.Defense));
+    }
+
+    //탈착함수
+    public void UnequipItem(long serialNumber, int itemId)
+    {
+        //마찬가지로 아이템 종류값을 추출하고 
+        var itemType = (ItemType)(itemId / 10000);
+        //아이템 종류에 따라 해당 변수를 초기화해 줌.
+        switch (itemType)
+        {
+            case ItemType.Weapon:
+                EquippedWeaponData = null;
+                break;
+            case ItemType.Shield:
+                EquippedShieldData = null;
+                break;
+            case ItemType.ChestArmor:
+                EquippedChestArmorData = null;
+                break;
+            case ItemType.Gloves:
+                EquippedGlovesData = null;
+                break;
+            case ItemType.Boots:
+                EquippedBootsData = null;
+                break;
+            case ItemType.Accessory:
+                EquippedAccessoryData = null;
+                break;
+            default:
+                break;
+        }
+        //딕셔너리에서 삭제
+        EquippedItemDic.Remove(serialNumber);
+    }
 }

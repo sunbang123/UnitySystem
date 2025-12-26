@@ -107,6 +107,11 @@ public class InventoryUI : BaseUI
         {
             foreach(var itemData in userInventoryData.InventoryItemDataList)
             {
+                if(userInventoryData.IsEquipped(itemData.SerialNumber))
+                {
+                    continue;
+                }
+
                 var itemSlotData = new InventoryItemSlotData();
                 itemSlotData.SerialNumber = itemData.SerialNumber;
                 itemSlotData.ItemId = itemData.ItemId;
@@ -189,6 +194,81 @@ public class InventoryUI : BaseUI
                 break;
         }
 
+        SortInventory();
+    }
+    //아이템 장착을 한 후 UI처리에 대한 함수를 먼저 작성하겠음.
+    public void OnEquipItem(int itemId)
+    {
+        //UserInventoryData를 가져옮
+        var userInventoryData = UserDataManager.Instance.GetUserData<UserInventoryData>();
+
+        if (userInventoryData == null)
+        {
+            Logger.LogError("UserInventoryData does not exist.");
+            return;
+        }
+        //아이템 종류에 따른 분기 처리
+        var itemType = (ItemType)(itemId / 10000);
+        switch (itemType)
+        {
+            case ItemType.Weapon:
+                //무기를 장착하는 상황이라면 무기 슬룻을 세팅해 줌
+                WeaponSlot.SetItem(userInventoryData.EquippedWeaponData);
+                break;
+            case ItemType.Shield:
+                ShieldSlot.SetItem(userInventoryData.EquippedShieldData);
+                break;
+            case ItemType.ChestArmor:
+                ChestArmorSlot.SetItem(userInventoryData.EquippedChestArmorData);
+                break;
+            case ItemType.Gloves:
+                GlovesSlot.SetItem(userInventoryData.EquippedGlovesData);
+                break;
+            case ItemType.Boots:
+                BootsSlot.SetItem(userInventoryData.EquippedBootsData);
+                break;
+            case ItemType.Accessory:
+                AccessorySlot.SetItem(userInventoryData.EquippedAccessoryData);
+                break;
+            default:
+                break;
+        }
+
+        SetInventory(); //인벤토리를 다시 세팅하고
+        SortInventory(); //정렬까지 다시 해주겠음.
+    }
+
+    //탈착 후 UI 처리에 대한 함수도 작성
+    public void OnUnequipItem(int itemId)
+    {
+        //아이템 종류 추출하고
+        var itemType = (ItemType)(itemId / 10000);
+        switch (itemType)
+        {
+            //해당 슬롯 초기화
+            case ItemType.Weapon:
+                WeaponSlot.ClearItem();
+                break;
+            case ItemType.Shield:
+                ShieldSlot.ClearItem();
+                break;
+            case ItemType.ChestArmor:
+                ChestArmorSlot.ClearItem();
+                break;
+            case ItemType.Gloves:
+                GlovesSlot.ClearItem();
+                break;
+            case ItemType.Boots:
+                BootsSlot.ClearItem();
+                break;
+            case ItemType.Accessory:
+                AccessorySlot.ClearItem();
+                break;
+            default:
+                break;
+        }
+
+        SetInventory();
         SortInventory();
     }
 }
