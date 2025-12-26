@@ -20,14 +20,33 @@ public class InventoryUI : BaseUI
 
     public InfiniteScroll InventoryScrollList;
     public TextMeshProUGUI SortBtnTxt;
+
+    public TextMeshProUGUI AttackPowerAmountTxt;
+    public TextMeshProUGUI DefenseAmountTxt;
+
     private InventorySortType m_InventorySortType = InventorySortType.ItemGrade;
     public override void SetInfo(BaseUIData uiData)
     {
         base.SetInfo(uiData);
 
+        SetUserStats();
         SetEquippedItems();
         SetInventory();
         SortInventory();
+    }
+    
+    private void SetUserStats()
+    {
+        var userInventoryData = UserDataManager.Instance.GetUserData<UserInventoryData>();
+        if(userInventoryData == null)
+        {
+            Logger.LogError("UserInventoryData does not exist.");
+            return;
+        }
+
+        var userTotalItemStats = userInventoryData.GetUserTotalItemStats();
+        AttackPowerAmountTxt.text = $"+{userTotalItemStats.AttackPower.ToString("N0")}";
+        DefenseAmountTxt.text = $"+{userTotalItemStats.Defense.ToString("N0")}";
     }
 
     private void SetEquippedItems()
@@ -233,7 +252,7 @@ public class InventoryUI : BaseUI
             default:
                 break;
         }
-
+        SetUserStats();
         SetInventory(); //인벤토리를 다시 세팅하고
         SortInventory(); //정렬까지 다시 해주겠음.
     }
@@ -267,7 +286,7 @@ public class InventoryUI : BaseUI
             default:
                 break;
         }
-
+        SetUserStats();
         SetInventory();
         SortInventory();
     }

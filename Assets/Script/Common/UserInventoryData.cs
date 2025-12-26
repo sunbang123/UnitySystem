@@ -378,4 +378,18 @@ public class UserInventoryData : IUserData
         //딕셔너리에서 삭제
         EquippedItemDic.Remove(serialNumber);
     }
+
+    public UserItemStats GetUserTotalItemStats()
+    {
+        var totalAttackPower = 0;
+        var totalDefense = 0;
+
+        foreach(var item in EquippedItemDic)
+        {
+            totalAttackPower += item.Value.AttackPower;
+            totalDefense += item.Value.Defense;
+        }
+
+        return new UserItemStats(totalAttackPower, totalDefense);
+    }
 }
