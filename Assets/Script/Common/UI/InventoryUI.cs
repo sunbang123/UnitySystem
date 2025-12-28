@@ -13,10 +13,9 @@ public class InventoryUI : BaseUI
     public EquippedItemSlot WeaponSlot;
     public EquippedItemSlot ShieldSlot;
     public EquippedItemSlot ChestArmorSlot;
-    public EquippedItemSlot BootsSlot;
     public EquippedItemSlot GlovesSlot;
+    public EquippedItemSlot BootsSlot;
     public EquippedItemSlot AccessorySlot;
-    public EquippedItemSlot EquippedGloves;
 
     public InfiniteScroll InventoryScrollList;
     public TextMeshProUGUI SortBtnTxt;
@@ -88,6 +87,15 @@ public class InventoryUI : BaseUI
             ChestArmorSlot.ClearItem();
         }
 
+        if (userInventoryData.EquippedGlovesData != null)
+        {
+            GlovesSlot.SetItem(userInventoryData.EquippedGlovesData);
+        }
+        else
+        {
+            GlovesSlot.ClearItem();
+        }
+
         if (userInventoryData.EquippedBootsData != null)
         {
             BootsSlot.SetItem(userInventoryData.EquippedBootsData);
@@ -97,14 +105,6 @@ public class InventoryUI : BaseUI
             BootsSlot.ClearItem();
         }
 
-        if (userInventoryData.EquippedGlovesData != null)
-        {
-            GlovesSlot.SetItem(userInventoryData.EquippedGlovesData);
-        }
-        else
-        {
-            GlovesSlot.ClearItem();
-        }
 
         if (userInventoryData.EquippedAccessoryData != null)
         {

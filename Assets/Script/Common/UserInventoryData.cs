@@ -73,6 +73,7 @@ public class UserInventoryData : IUserData
         {
             for (int grade = 1; grade <= 4; grade++)
             {
+                // 검의 종류
                 for (int num = 1; num <= 2; num++)
                 {
                     int id = (type * 10000) + (grade * 1000) + num;
@@ -85,8 +86,8 @@ public class UserInventoryData : IUserData
         EquippedWeaponData = GetItem(1, 1); // 1번타입 1등급 (무기)
         EquippedShieldData = GetItem(2, 2); // 2번타입 2등급 (방패)
         EquippedChestArmorData = GetItem(3, 3); // 2번타입 2등급 (방패)
-        EquippedBootsData = GetItem(4, 1); // 2번타입 2등급 (방패)
-        EquippedGlovesData = GetItem(5, 4); // 번타입 2등급 (방패)
+        EquippedGlovesData = GetItem(4, 1); // 번타입 2등급 (방패)
+        EquippedBootsData = GetItem(5, 4); // 2번타입 2등급 (방패)
         EquippedAccessoryData = GetItem(6, 1); // 6번타입 3등급 (장신구)
         // 나머지 부위도 기본값 필요하면 여기서 GetItem(타입, 등급)으로 호출
 
@@ -123,18 +124,18 @@ public class UserInventoryData : IUserData
                 Logger.Log($"EquippedChestArmorData: SN:{EquippedChestArmorData.SerialNumber}ItemId:{ EquippedChestArmorData.ItemId}");
             }
 
-            string bootsJson = PlayerPrefs.GetString("EquippedBootsData");
-            if (!string.IsNullOrEmpty(bootsJson))
-            {
-                EquippedBootsData = JsonUtility.FromJson<UserItemData>(bootsJson);
-                Logger.Log($"EquippedBootsArmorData: SN:{EquippedBootsData.SerialNumber}ItemId:{ EquippedBootsData.ItemId}");
-            }
-
             string glovesJson = PlayerPrefs.GetString("EquippedGlovesData");
             if (!string.IsNullOrEmpty(glovesJson))
             {
                 EquippedGlovesData = JsonUtility.FromJson<UserItemData>(glovesJson);
                 Logger.Log($"EquippedGlovesData: SN:{EquippedGlovesData.SerialNumber}ItemId:{ EquippedGlovesData.ItemId}");
+            }
+
+            string bootsJson = PlayerPrefs.GetString("EquippedBootsData");
+            if (!string.IsNullOrEmpty(bootsJson))
+            {
+                EquippedBootsData = JsonUtility.FromJson<UserItemData>(bootsJson);
+                Logger.Log($"EquippedBootsArmorData: SN:{EquippedBootsData.SerialNumber}ItemId:{EquippedBootsData.ItemId}");
             }
 
             string accessoryJson = PlayerPrefs.GetString("EquippedAccessoryData");
@@ -202,8 +203,8 @@ public class UserInventoryData : IUserData
             if (EquippedWeaponData != null) PlayerPrefs.SetString("EquippedWeaponData", JsonUtility.ToJson(EquippedWeaponData));
             if (EquippedShieldData != null) PlayerPrefs.SetString("EquippedShieldData", JsonUtility.ToJson(EquippedShieldData));
             if (EquippedChestArmorData != null) PlayerPrefs.SetString("EquippedChestArmorData", JsonUtility.ToJson(EquippedChestArmorData));
-            if (EquippedBootsData != null) PlayerPrefs.SetString("EquippedBootsData", JsonUtility.ToJson(EquippedBootsData));
             if (EquippedGlovesData != null) PlayerPrefs.SetString("EquippedGlovesData", JsonUtility.ToJson(EquippedGlovesData));
+            if (EquippedBootsData != null) PlayerPrefs.SetString("EquippedBootsData", JsonUtility.ToJson(EquippedBootsData));
             if (EquippedAccessoryData != null) PlayerPrefs.SetString("EquippedAccessoryData", JsonUtility.ToJson(EquippedAccessoryData));
 
             PlayerPrefs.Save();
@@ -246,21 +247,21 @@ public class UserInventoryData : IUserData
                     new UserItemStats(itemData.AttackPower, itemData.Defense));
             }
         }
-        if (EquippedBootsData != null)
-        {
-            var itemData = DataTableManager.Instance.GetItemData(EquippedBootsData.ItemId);
-            if (itemData != null)
-            {
-                EquippedItemDic.Add(EquippedBootsData.SerialNumber,
-                    new UserItemStats(itemData.AttackPower, itemData.Defense));
-            }
-        }
         if (EquippedGlovesData != null)
         {
             var itemData = DataTableManager.Instance.GetItemData(EquippedGlovesData.ItemId);
             if (itemData != null)
             {
                 EquippedItemDic.Add(EquippedGlovesData.SerialNumber,
+                    new UserItemStats(itemData.AttackPower, itemData.Defense));
+            }
+        }
+        if (EquippedBootsData != null)
+        {
+            var itemData = DataTableManager.Instance.GetItemData(EquippedBootsData.ItemId);
+            if (itemData != null)
+            {
+                EquippedItemDic.Add(EquippedBootsData.SerialNumber,
                     new UserItemStats(itemData.AttackPower, itemData.Defense));
             }
         }
@@ -315,14 +316,6 @@ public class UserInventoryData : IUserData
                 }
                 EquippedChestArmorData = new UserItemData(serialNumber, itemId);
                 break;
-            case ItemType.Boots:
-                if (EquippedBootsData != null)
-                {
-                    EquippedItemDic.Remove(EquippedBootsData.SerialNumber);
-                    EquippedBootsData = null;
-                }
-                EquippedBootsData = new UserItemData(serialNumber, itemId);
-                break;
             case ItemType.Gloves:
                 if (EquippedGlovesData != null)
                 {
@@ -330,6 +323,14 @@ public class UserInventoryData : IUserData
                     EquippedGlovesData = null;
                 }
                 EquippedGlovesData = new UserItemData(serialNumber, itemId);
+                break;
+            case ItemType.Boots:
+                if (EquippedBootsData != null)
+                {
+                    EquippedItemDic.Remove(EquippedBootsData.SerialNumber);
+                    EquippedBootsData = null;
+                }
+                EquippedBootsData = new UserItemData(serialNumber, itemId);
                 break;
             case ItemType.Accessory:
                 if (EquippedAccessoryData != null)

@@ -28,6 +28,7 @@ public class DataTableManager : SingletonBehaviour<DataTableManager>
             var chapterData = new ChapterData
             {
                 ChapterNo = Convert.ToInt32(data["chapter_no"]),
+                ChapterName = data["chapter_name"].ToString(),
                 TotalStage = Convert.ToInt32(data["total_stages"]),
                 ChapterRewardGem = Convert.ToInt32(data["chapter_reward_gem"]),
                 ChapterRewardGold = Convert.ToInt32(data["chapter_reward_gold"]),
@@ -81,6 +82,7 @@ public class DataTableManager : SingletonBehaviour<DataTableManager>
 public class ChapterData
 {
     public int ChapterNo;
+    public string ChapterName;
     public int TotalStage;
     public int ChapterRewardGem;
     public int ChapterRewardGold;

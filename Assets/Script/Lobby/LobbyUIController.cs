@@ -1,10 +1,42 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class LobbyUIController : MonoBehaviour
 {
+    public TextMeshProUGUI CurrChapterNameTxt;
+    public RawImage CurrChapterBg;
+
     public void Init()
     {
+        //UIManager.Instance.EnableStatsUI(true); // 
+        SetCurrChapter();
+    }
 
+    public void SetCurrChapter()
+    {
+        var userPlayData = UserDataManager.Instance.GetUserData<UserPlayData>();
+        if(userPlayData == null)
+        {
+            Logger.LogError("UserPlayData does not exits.");
+            return;
+        }
+
+        var currChapterData = DataTableManager.Instance.GetChapterData(userPlayData.SelectedChapter);
+        if(currChapterData == null)
+        {
+            Logger.LogError("CurrChapterData does not exist.");
+            return;
+        }
+
+        CurrChapterNameTxt.text = currChapterData.ChapterName;
+        var bgTexture = Resources.Load($"ChapterBG/Background_{userPlayData.SelectedChapter.ToString("D3")}") as Texture2D;
+
+        if(bgTexture != null)
+        {
+            CurrChapterBg.texture = bgTexture;
+        }
     }
 
     //로비씬에서 설정 버튼을 누르면 SettingsUI가 열리는 함수
