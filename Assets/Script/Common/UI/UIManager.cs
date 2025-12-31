@@ -1,16 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : SingletonBehaviour<UIManager>
 {
     public Transform UICanvasTrs;
     public Transform ClosedUITrs;
+    public Image m_Fade;
 
     private BaseUI m_FrontUI; // UI화면에 가장 상단 UI인데 그걸 멤버변수로 쓰고있다.
 
     private Dictionary<System.Type, GameObject> m_OpenUIPool = new Dictionary<System.Type, GameObject>();
     private Dictionary<System.Type, GameObject> m_ClosedUIPool = new Dictionary<System.Type, GameObject>();
 
+    private GoodsUI m_GoodsUI;
+
+    protected override void Init()
+    {
+        base.Init();
+
+        m_Fade.transform.localScale = Vector3.zero;
+
+        m_GoodsUI = FindObjectOfType<GoodsUI>();
+        if (!m_GoodsUI)
+        {
+            Logger.Log("No stats ui component found");
+        }
+    }
     // 여러가지 값이나 참조를 반환하고 싶을때 이렇게 out 매개변수 사용함.
     private BaseUI GetUI<T>(out bool isAlreadyOpen)
     {
@@ -128,6 +144,15 @@ public class UIManager : SingletonBehaviour<UIManager>
         while(m_FrontUI)
         {
             m_FrontUI.CloseUI(true);
+        }
+    }
+    public void EnabledStatusUI(bool value)
+    {
+        m_GoodsUI.gameObject.SetActive(value);
+
+        if (value)
+        {
+            m_GoodsUI.SetValues();
         }
     }
 }
