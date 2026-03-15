@@ -10,7 +10,7 @@ public class LobbyUIController : MonoBehaviour
 
     public void Init()
     {
-        UIManager.Instance.EnabledStatusUI(true);
+        //UIManager.Instance.EnableStatsUI(true); // 
         SetCurrChapter();
     }
 
@@ -39,6 +39,8 @@ public class LobbyUIController : MonoBehaviour
         }
     }
 
+    //로비씬에서 설정 버튼을 누르면 SettingsUI가 열리는 함수
+    // 설정 버튼을 눌렀을 때 처리
     public void OnClickSettingsBtn()
     {
         Logger.Log($"{GetType()}::OnClickSettingsBtn");
@@ -53,13 +55,5 @@ public class LobbyUIController : MonoBehaviour
 
         var uiData = new BaseUIData();
         UIManager.Instance.OpenUI<InventoryUI>(uiData);
-    }
-
-    public void OnClickCurrChapter()
-    {
-        Logger.Log($"{GetType()}::OnClickCurrChapter");
-
-        var uiData = new BaseUIData();
-        UIManager.Instance.OpenUI<ChapterListUI>(uiData);
     }
 }
